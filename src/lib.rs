@@ -1,10 +1,10 @@
 use std::borrow::Cow;
 
-pub trait ItemFeatureTrait {
+pub trait ItemFeature {
     fn text(&self) -> Cow<'_,str>;
 }
 
-pub trait ItemWithFeaturesTrait {
+pub trait ItemWithFeatures {
     fn header(&self) -> Cow<'_,str>;
     fn features(&self) -> &[Cow<'_, str>];
 }
@@ -13,7 +13,7 @@ pub trait AIDescriptor {
     fn ai(&self) -> Cow<'_,str>;
 }
 
-impl<T: ItemWithFeaturesTrait> AIDescriptor for T {
+impl<T: ItemWithFeatures> AIDescriptor for T {
 
     fn ai(&self) -> Cow<'_,str> {
         let mut lines: Vec<String> = vec![];
@@ -36,7 +36,7 @@ mod tests {
         features: Vec<Cow<'static, str>>,
     }
 
-    impl ItemWithFeaturesTrait for TestItem {
+    impl ItemWithFeatures for TestItem {
         fn header(&self) -> Cow<'_, str> {
             Cow::Borrowed(&self.header)
         }
