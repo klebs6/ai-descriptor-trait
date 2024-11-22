@@ -31,10 +31,9 @@ impl<T: ItemWithFeatures> AIDescriptor for T {
 
     fn ai_alt(&self) -> Cow<'_,str> {
         let mut lines: Vec<String> = vec![];
-        lines.push(self.header().into());
 
         for feature in self.features() {
-            lines.push(feature);
+            lines.push(feature.into());
         }
         Cow::Owned(lines.join(" "))
     }
